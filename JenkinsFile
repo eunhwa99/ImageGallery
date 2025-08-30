@@ -1,0 +1,15 @@
+pipeline {
+    agent any
+    environment {
+        UNSPLASH_ACCESS_KEY = credentials('UNSPLASH_KEY')
+    }
+
+     stages {
+        stage('Build & Deploy') {
+            steps {
+                sh 'docker-compose build'
+                sh 'docker-compose up -d'
+            }
+        }
+    }
+}
