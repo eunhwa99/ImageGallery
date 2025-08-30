@@ -9,6 +9,7 @@ CORS(app)
 
 load_dotenv()  # .env 파일 로드
 UNSPLASH_ACCESS_KEY = os.getenv("UNSPLASH_ACCESS_KEY")
+port = int(os.getenv("FLASK_PORT", 5000))
 
 @app.route("/images", methods=["POST"])
 def get_images():
@@ -28,4 +29,4 @@ def get_images():
     return jsonify({"images": images[:12]})
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=8080, debug=True)
+    app.run(host="0.0.0.0", port=port, debug=True)

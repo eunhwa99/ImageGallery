@@ -21,13 +21,15 @@ function App() {
     return `linear-gradient(to right, ${color1}, ${color2})`;
   };
 
+  const BACKEND_URL =
+    process.env.REACT_APP_BACKEND_URL || "http://localhost:5000";
   const handleSearch = async () => {
     if (!keyword) return;
 
     // 검색어 기반 임시 gradient 저장 (로딩 완료 후 적용)
     setTempGradient(generateGradient(keyword));
 
-    const res = await fetch("http://localhost:8080/images", {
+    const res = await fetch(`${BACKEND_URL}/images`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ keyword }),

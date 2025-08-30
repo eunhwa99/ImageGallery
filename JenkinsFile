@@ -3,6 +3,12 @@ pipeline {
     environment {
         UNSPLASH_ACCESS_KEY = credentials('UNSPLASH_KEY')
     }
+     stage('Checkout') {
+            steps {
+                git branch: 'main', url: 'https://github.com/USERNAME/image-gallery.git'
+            }
+        }
+
 
      stages {
         stage('Build & Deploy') {
@@ -10,6 +16,14 @@ pipeline {
                 sh 'docker-compose build'
                 sh 'docker-compose up -d'
             }
+        }
+    }
+    post {
+        success {
+            echo "✅ Deployment Success!"
+        }
+        failure {
+            echo "❌ Deployment Failed!"
         }
     }
 }
