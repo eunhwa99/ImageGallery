@@ -22,7 +22,8 @@ function App() {
   };
 
   const BACKEND_URL =
-    process.env.REACT_APP_BACKEND_URL || "http://localhost:5000";
+    process.env.REACT_APP_BACKEND_URL || "http://localhost:10080";
+  console.log("Using BACKEND_URL:", BACKEND_URL);
   const handleSearch = async () => {
     if (!keyword) return;
 
