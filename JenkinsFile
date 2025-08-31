@@ -1,20 +1,22 @@
 pipeline {
     agent any
     environment {
+        PATH = "/usr/local/bin:/opt/homebrew/bin:$PATH"
         UNSPLASH_ACCESS_KEY = credentials('UNSPLASH_KEY')
     }
-     stage('Checkout') {
+ 
+    stages {
+       stage('Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/USERNAME/image-gallery.git'
+                git branch: 'main', url: 'https://github.com/eunhwa99/ImageGallery.git'
             }
         }
-
-
-     stages {
         stage('Build & Deploy') {
             steps {
-                sh 'docker-compose build'
-                sh 'docker-compose up -d'
+                sh '''
+                docker compose build --no-cache
+                docker compose up -d
+                '''
             }
         }
     }
