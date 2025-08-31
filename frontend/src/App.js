@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import { BACKEND_URL } from "./config";
 
 function App() {
   const [keyword, setKeyword] = useState("");
@@ -21,7 +22,6 @@ function App() {
     return `linear-gradient(to right, ${color1}, ${color2})`;
   };
 
-  const BACKEND_URL = "http://backend-my-backend:8000";
   console.log("Using BACKEND_URL:", BACKEND_URL);
   const handleSearch = async () => {
     if (!keyword) return;
