@@ -3,16 +3,16 @@ services:
   backend:
     build: ./backend
     ports:
-      - "10080:10080"
+      - "8000:8000"
     environment:
       - UNSPLASH_ACCESS_KEY=${UNSPLASH_ACCESS_KEY}
-      - FLASK_PORT=10080
+      - FLASK_PORT=8000
 
   frontend:
     build: ./frontend
     ports:
       - "3000:3000"
     environment:
-      - REACT_APP_BACKEND_URL=http://localhost:10080
+      - REACT_APP_BACKEND_URL=http://backend:8000
     depends_on:
       - backend

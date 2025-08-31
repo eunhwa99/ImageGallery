@@ -3,13 +3,13 @@ FROM python:3.11-slim
 
 WORKDIR /app
 
-# 필요 라이브러리 설치
-COPY app/ .
+# requirements 복사 & 설치
+COPY app/requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 # 소스 복사
-COPY . .
+COPY app/ .
 
 # Flask 서버 실행
-EXPOSE 5000
+EXPOSE 8000
 CMD ["python", "main.py"]

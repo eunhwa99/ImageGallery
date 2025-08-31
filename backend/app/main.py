@@ -9,7 +9,7 @@ CORS(app)
 
 load_dotenv()  # .env 파일 로드
 UNSPLASH_ACCESS_KEY = os.getenv("UNSPLASH_ACCESS_KEY")
-port = int(os.getenv("FLASK_PORT", 10080))
+port = int(os.getenv("FLASK_PORT", 8000))
 
 @app.route("/images", methods=["POST"])
 def get_images():
