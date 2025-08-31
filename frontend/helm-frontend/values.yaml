@@ -4,9 +4,8 @@ image:
   pullPolicy: IfNotPresent
 
 service:
-  type: NodePort
+  type: ClusterIP
   port: 3000
-  nodePort: 30080 # 클러스터 외부에서 접근할 포트
 
 serviceAccount:
   create: false
