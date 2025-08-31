@@ -21,8 +21,7 @@ function App() {
     return `linear-gradient(to right, ${color1}, ${color2})`;
   };
 
-  const BACKEND_URL =
-    process.env.REACT_APP_BACKEND_URL || "http://localhost:8000";
+  const BACKEND_URL = "http://backend-my-backend:8000";
   console.log("Using BACKEND_URL:", BACKEND_URL);
   const handleSearch = async () => {
     if (!keyword) return;
