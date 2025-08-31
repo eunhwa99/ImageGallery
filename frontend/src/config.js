@@ -1,1 +1,2 @@
-export const BACKEND_URL = window._env_.REACT_APP_BACKEND_URL;
+// src/config.js
+export const BACKEND_URL = "http://backend-my-backend:8000";

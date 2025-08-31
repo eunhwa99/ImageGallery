@@ -7,10 +7,6 @@ service:
   type: ClusterIP
   port: 3000
 
-env:
-  - name: REACT_APP_BACKEND_URL
-    value: "http://backend-my-backend:8000" # Pod 내부 서비스 이름
-
 serviceAccount:
   create: false
   name: ""
