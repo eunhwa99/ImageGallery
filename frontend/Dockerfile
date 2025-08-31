@@ -2,6 +2,8 @@ FROM node:20-alpine
 
 WORKDIR /app
 
+ENV REACT_APP_BACKEND_URL=http://backend:8000
+
 COPY package*.json ./
 RUN npm install
 
