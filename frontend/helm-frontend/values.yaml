@@ -4,9 +4,8 @@ image:
   pullPolicy: IfNotPresent
 
 service:
-  type: NodePort
-  port: 8000
-  nodePort: 30081
+  type: ClusterIP
+  port: 3000
 
 serviceAccount:
   create: false
