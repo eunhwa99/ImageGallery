@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: "{{ .Chart.Name }}-backend"
+  name: {{ .Chart.Name }}-backend
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: "{{ .Chart.Name }}-backend"
+      app: {{ .Chart.Name }}-backend
   template:
     metadata:
       labels:
-        app: "{{ .Chart.Name }}-backend"
+        app: {{ .Chart.Name }}-backend
     spec:
       containers:
         - name: backend
-          image: { { .Values.backend.image } }
+          image: {{ .Values.backend.image }}
           ports:
-            - containerPort: { { .Values.backend.service.port } }
+            - containerPort: {{ .Values.backend.service.port }}
           envFrom:
             - secretRef:
-                name: { { .Values.backend.envFromSecret } }
+                name: {{ .Values.backend.envFromSecret }}
