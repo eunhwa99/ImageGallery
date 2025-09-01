@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: "{{ .Chart.Name }}-frontend"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: "{{ .Chart.Name }}-frontend"
+  template:
+    metadata:
+      labels:
+        app: "{{ .Chart.Name }}-frontend"
+    spec:
+      containers:
+        - name: frontend
+          image: { { .Values.frontend.image } }
+          ports:
+            - containerPort: { { .Values.frontend.service.port } }
