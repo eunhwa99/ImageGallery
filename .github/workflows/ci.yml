@@ -44,13 +44,13 @@ jobs:
           tags: ghcr.io/${{ github.repository_owner }}/backend:latest
 
       - name: Trigger Jenkins Job
-        uses: sbitio/trigger-jenkins-job@master
+        uses: appleboy/jenkins-action@master
         with:
-          JENKINS_USER: ${{ secrets.JENKINS_USER }}
-          JENKINS_TOKEN: ${{ secrets.JENKINS_TOKEN }}
-          JENKINS_HOST: ${{ secrets.JENKINS_HOST }}
-          JENKINS_JOB: ${{ env.JENKINS_JOB }}
-          JENKINS_PARAMS: ${{ env.JENKINS_PARAMS }}
+          user: ${{ secrets.JENKINS_USER }}
+          token: ${{ secrets.JENKINS_TOKEN }}
+          url: ${{ secrets.JENKINS_HOST }}
+          job: ${{ env.JENKINS_JOB }}
+          parameters: ${{ env.JENKINS_PARAMS }}
 # name: Build & Push Docker Images
 # on:
 #   push:
