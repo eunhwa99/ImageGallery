@@ -4,6 +4,10 @@ on:
   push:
     branches: ["main"] # main 브랜치에 push 될 때 실행
 
+env:
+  JENKINS_JOB: gallery_app
+  JENKINS_PARAMS: environment=dev
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -38,6 +42,15 @@ jobs:
           context: ./backend
           push: true
           tags: ghcr.io/${{ github.repository_owner }}/backend:latest
+
+      - name: Trigger Jenkins Job
+        uses: sbitio/trigger-jenkins-job@master
+        with:
+          JENKINS_USER: ${{ secrets.JENKINS_USER }}
+          JENKINS_TOKEN: ${{ secrets.JENKINS_TOKEN }}
+          JENKINS_HOST: ${{ secrets.JENKINS_HOST }}
+          JENKINS_JOB: ${{ env.JENKINS_JOB }}
+          JENKINS_PARAMS: ${{ env.JENKINS_PARAMS }}
 # name: Build & Push Docker Images
 # on:
 #   push:
