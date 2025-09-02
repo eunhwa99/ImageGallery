@@ -21,4 +21,4 @@ spec:
             - secretRef:
                 name: {{ .Values.backend.envFromSecret }}
       imagePullSecrets:
-          - name: {{ .Values.backend.imagePullSecrets }}
+        - name: {{ .Values.backend.imagePullSecrets }}
