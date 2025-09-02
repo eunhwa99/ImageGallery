@@ -17,5 +17,3 @@ spec:
           image: {{ .Values.frontend.image }}
           ports:
             - containerPort: {{ .Values.frontend.service.port }}
-      imagePullSecrets:
-          - name: {{ .Values.backend.imagePullSecret }}

@@ -1,6 +1,6 @@
 backend:
   image: ghcr.io/eunhwa99/backend:latest
-  imagePullSecret: ghcr-secret
+  imagePullSecrets: ghcr-secret
   envFromSecret: unsplash-secret
   service:
     type: ClusterIP
@@ -8,7 +8,6 @@ backend:
 
 frontend:
   image: ghcr.io/eunhwa99/frontend:latest
-  imagePullSecret: ghcr-secret
   service:
     type: ClusterIP
     port: 3000
