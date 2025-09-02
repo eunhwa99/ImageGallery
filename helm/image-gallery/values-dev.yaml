@@ -8,6 +8,7 @@ backend:
 
 frontend:
   image: ghcr.io/eunhwa99/frontend:latest
+  imagePullSecrets: ghcr-secret
   service:
     type: ClusterIP
     port: 3000
