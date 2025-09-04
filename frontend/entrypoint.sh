@@ -1,8 +1,10 @@
 #!/bin/sh
 
-echo "Replacing placeholder with $REACT_APP_BACKEND_URL"
-# 빌드된 JS나 index.html 파일을 정확히 치환
-sed -i "s|REACT_APP_BACKEND_URL_PLACEHOLDER|$REACT_APP_BACKEND_URL|g" /app/build/index.html
+# 환경변수로 runtime config 생성
+ENV_FILE=/app/build/env-config.js
 
-# React 앱 실행
-serve -s build -l 3000
+echo "window._env_ = {" > $ENV_FILE
+echo "  REACT_APP_BACKEND_URL: '${REACT_APP_BACKEND_URL}'" >> $ENV_FILE
+echo "}" >> $ENV_FILE
+
+exec "$@"
