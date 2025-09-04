@@ -3,14 +3,21 @@ backend:
   imagePullSecrets: ghcr-secret
   envFromSecret: unsplash-secret
   service:
-    type: NodePort
+    type: ClusterIP
     port: 8000
-    nodePort: 30081
 
 frontend:
   image: ghcr.io/eunhwa99/frontend:latest
   imagePullSecrets: ghcr-secret
   service:
-    type: NodePort
+    type: ClusterIP
     port: 3000
-    nodePort: 30080
+
+ingress:
+  enabled: true
+  host: myapp.local
+  paths:
+    frontend: "/"
+    backend: "/api"
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$1

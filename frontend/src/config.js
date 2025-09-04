@@ -1,1 +1,2 @@
-export const BACKEND_URL = window._env_?.REACT_APP_BACKEND_URL;
+export const BACKEND_URL =
+  process.env.REACT_APP_BACKEND_URL || "http://myapp.local/api";
