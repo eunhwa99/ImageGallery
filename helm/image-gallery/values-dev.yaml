@@ -16,7 +16,6 @@ frontend:
 ingress:
   enabled: true
   host: myapp.local
-  nodePort: 30080 # NodePort로 외부 노출
   paths:
     backend: /api(/|$)(.*)
     frontend: /

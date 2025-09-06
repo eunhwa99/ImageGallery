@@ -1,2 +1,2 @@
 export const BACKEND_URL =
-  process.env.REACT_APP_BACKEND_URL || "http://myapp.local:8888/api";
+  process.env.REACT_APP_BACKEND_URL || "http://myapp.local/api";
