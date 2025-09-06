@@ -19,4 +19,5 @@ ingress:
   paths:
     backend: /api
     frontend: /
-  annotations: {}
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
