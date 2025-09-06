@@ -16,8 +16,14 @@ frontend:
 ingress:
   enabled: true
   host: myapp.local
+  nodePort: 30080 # NodePort로 외부 노출
   paths:
-    backend: /api
+    backend: /api(/|$)(.*)
     frontend: /
-  annotations:
+  # 기존 annotations 필드는 삭제하거나 사용하지 않음
+  backendAnnotations:
     nginx.ingress.kubernetes.io/rewrite-target: /$2
+    # 다른 백엔드 관련 어노테이션 추가 가능
+  frontendAnnotations:
+    {}
+    # 프론트엔드 관련 어노테이션이 있다면 여기에 추가

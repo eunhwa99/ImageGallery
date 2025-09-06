@@ -1,0 +1,24 @@
+{{- if .Values.ingress.enabled }}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ .Chart.Name }}-backend-ingress
+  annotations:
+    {{- range $key, $value := .Values.ingress.backendAnnotations }}
+    {{ $key }}: {{ $value }}
+    {{- end }}
+spec:
+  # 이 부분을 추가합니다
+  ingressClassName: nginx
+  rules:
+    - host: {{ .Values.ingress.host }}
+      http:
+        paths:
+          - path: {{ .Values.ingress.paths.backend }}
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: {{ .Chart.Name }}-backend
+                port:
+                  number: {{ .Values.backend.service.port }}
+{{- end }}
