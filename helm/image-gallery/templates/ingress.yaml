@@ -12,13 +12,6 @@ spec:
     - host: {{ .Values.ingress.host }}
       http:
         paths:
-          - path: {{ .Values.ingress.paths.frontend }}
-            pathType: Prefix
-            backend:
-              service:
-                name: {{ .Chart.Name }}-frontend
-                port:
-                  number: {{ .Values.frontend.service.port }}
           - path: {{ .Values.ingress.paths.backend }}
             pathType: Prefix
             backend:
@@ -26,4 +19,11 @@ spec:
                 name: {{ .Chart.Name }}-backend
                 port:
                   number: {{ .Values.backend.service.port }}
+          - path: {{ .Values.ingress.paths.frontend }}
+            pathType: Prefix
+            backend:
+              service:
+                name: {{ .Chart.Name }}-frontend
+                port:
+                  number: {{ .Values.frontend.service.port }}
 {{- end }}
