@@ -208,4 +208,4 @@ This project is **primarily for learning and experimentation**, but it demonstra
 It is suitable for showcasing **DevOps, backend, and cloud skills**.
 
 ## Demo
-![Image](https://github.com/user-attachments/assets/4dda92a8-5af0-4f9a-82c7-f6c3a03feade)
+https://github.com/user-attachments/assets/ef19f4bb-4177-4290-ad59-7f8367916151
