@@ -95,13 +95,36 @@ kubectl create secret generic unsplash-secret \
   --from-literal=UNSPLASH_ACCESS_KEY=<YOUR_UNSPLASH_KEY>
 
 # Deploy with Helm
-helm upgrade --install image-gallery ./helm/image-gallery -f ./helm/image-gallery/values-dev.yaml --kube-context minikube
+helm upgrade --install image-gallery ./helm/image-gallery \
+  -f ./helm/image-gallery/values-dev.yaml \
+  --kube-context minikube
 
-# Port-forward for local access
+# =========================================
+# Option 1: Port-forward for local access
+# =========================================
 kubectl port-forward svc/image-gallery-backend 8000:8000
 kubectl port-forward svc/image-gallery-frontend 3000:3000
+
+# Access the app in your browser at `http://localhost:3000`
+
+# =========================================
+# Option 2: Ingress for local access
+# =========================================
+# Enable NGINX Ingress controller in Minikube
+minikube addons enable ingress
+
+# Start tunnel (required for Ingress to work in Minikube)
+minikube tunnel
+
+# Add host entry (Linux/Mac)
+echo "127.0.0.1 myapp.local" | sudo tee -a /etc/hosts
+
+# Now you can access:
+# Backend:  http://myapp.local/api
+# Frontend: http://myapp.local/
+
 ```
-Access the app in your browser at `http://localhost:3000`.
+
 
 ## 🛠 CI/CD Overview
 
@@ -184,3 +207,5 @@ This project is **primarily for learning and experimentation**, but it demonstra
 
 It is suitable for showcasing **DevOps, backend, and cloud skills**.
 
+## Demo
+![Image](https://github.com/user-attachments/assets/4dda92a8-5af0-4f9a-82c7-f6c3a03feade)
