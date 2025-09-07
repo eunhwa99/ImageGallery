@@ -9,10 +9,11 @@ services:
       - FLASK_PORT=8000
 
   frontend:
-    build: ./frontend
+    build:
+      context: ./frontend
+      args:
+        REACT_APP_BACKEND_URL: http://localhost:8000
     ports:
       - "3000:3000"
-    environment:
-      - REACT_APP_BACKEND_URL=http://localhost:8000
     depends_on:
       - backend
