@@ -482,7 +482,7 @@ function App() {
                       borderRadius: "50%",
                       animation: "spin 1s linear infinite"
                     }}></div>
-                    불러오는 중...
+                    Loading...
                   </span>
                 ) : (
                   "See more images +"
