@@ -1,0 +1,74 @@
+pipeline {
+    agent any
+
+    parameters {
+        choice(name: 'ENV', choices: ['dev','stg','prod'], description: '배포 환경')
+    }
+
+    environment {
+        PATH = "/usr/local/bin:/opt/homebrew/bin:$PATH"
+        REGISTRY = "ghcr.io"
+        BACKEND_IMAGE = "ghcr.io/eunhwa99/backend:latest"
+        FRONTEND_IMAGE = "ghcr.io/eunhwa99/frontend:latest"
+
+        // Jenkins Credentials
+        GHCR = credentials('ghcr-credentials')      // usernamePassword → GHCR_USR, GHCR_PSW
+        UNSPLASH = credentials('UNSPLASH_KEY')      // string → UNSPLASH
+    }
+
+    stages {
+        stage('Clean Workspace') {
+            steps {
+                deleteDir() // 현재 workspace 전체 삭제
+                git branch: 'main', url: 'https://github.com/eunhwa99/ImageGallery.git'
+            }
+        }
+        stage('Login to GHCR') {
+            steps {
+                sh '''
+                  echo $GHCR_PSW | docker login $REGISTRY -u $GHCR_USR --password-stdin
+                '''
+            }
+        }
+
+        stage('Create Kubernetes Secrets') {
+            steps {
+                // GHCR Secret (private image pull)
+                sh '''
+                  kubectl create secret docker-registry ghcr-secret \
+                    --docker-server=$REGISTRY \
+                    --docker-username=$GHCR_USR \
+                    --docker-password=$GHCR_PSW \
+                    --docker-email=none \
+                    --dry-run=client -o yaml | kubectl apply -f -
+                '''
+
+                // Unsplash API Secret
+                sh '''
+                  kubectl create secret generic unsplash-secret \
+                    --from-literal=UNSPLASH_ACCESS_KEY=$UNSPLASH \
+                    --dry-run=client -o yaml | kubectl apply -f -
+                '''
+            }
+        }
+
+        stage('Deploy with Helm') {
+            steps {
+                sh '''
+                  helm upgrade --install image-gallery ./helm/image-gallery \
+                    -f ./helm/image-gallery/values-${ENV}.yaml
+                '''
+            }
+        }
+
+        stage('Verify Pods') {
+            steps {
+                sh '''
+                  kubectl get pods
+                  kubectl describe pod -l app=image-gallery-backend
+                  kubectl describe pod -l app=image-gallery-frontend
+                '''
+            }
+        }
+    }
+}
